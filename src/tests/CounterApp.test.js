@@ -34,4 +34,20 @@ describe('Pruebas sobre el componente <CounterApp />', () => {
         const counterText = wrapper.find('h2').text();
         expect(counterText).toBe('9');
     });
+
+    test('Debe reiniciar el contador al valor por defecto', () => {
+        wrapper.find('button').at(0).simulate('click');
+        wrapper.find('button').at(1).simulate('click'); // Click onReset
+        let counterValue = wrapper.find('h2').text();
+        
+        expect(counterValue).toBe('10');
+        
+        wrapper = shallow(<CounterApp value={25} />);
+        wrapper.find('button').at(2).simulate('click');
+        wrapper.find('button').at(2).simulate('click');
+        wrapper.find('button').at(1).simulate('click'); // Click onReset
+        counterValue = wrapper.find('h2').text();
+        
+        expect(counterValue).toBe('25');
+    });
 });
